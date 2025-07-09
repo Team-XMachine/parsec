@@ -1,10 +1,10 @@
 plugins {
-    id 'com.android.library'
-    id 'maven-publish'
+    id 'com.android.library'  // Isso define que seu módulo é uma library
+    id 'maven-publish'        // Plugin para publicar no Maven
 }
 
 android {
-    namespace 'com.xmachine.parsec.dash'  // 👈 Adicione isso!
+    namespace 'com.xmachine.parsec.dash'  // substitua pelo seu namespace/pacote Java
     compileSdk = 30
 
     defaultConfig {
@@ -14,11 +14,32 @@ android {
     }
 
     publishing {
-        singleVariant("release")
+        singleVariant("release") // Isso diz que vamos publicar só a variante release
     }
 }
 
 publishing {
+    publications {
+        release(MavenPublication) {
+            groupId = 'com.xmachine.parsec'
+            artifactId = 'dash-core'
+            version = '1.0.0'
+
+            artifact("$buildDir/outputs/aar/${project.getName()}-release.aar")
+
+            pom {
+                withXml {
+                    def dependenciesNode = asNode().appendNode('dependencies')
+                    configurations.implementation.allDependencies.each { dep ->
+                        def dependencyNode = dependenciesNode.appendNode('dependency')
+                        dependencyNode.appendNode('groupId', dep.group)
+                        dependencyNode.appendNode('artifactId', dep.name)
+                        dependencyNode.appendNode('version', dep.version)
+                    }
+                }
+            }
+        }
+    }
     repositories {
         maven {
             name = "GitHubPackages"
@@ -30,6 +51,7 @@ publishing {
         }
     }
 }
+
 
 
 dependencies {
