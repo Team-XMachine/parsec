@@ -1,58 +1,16 @@
 plugins {
-    id 'com.android.library'  // Isso define que seu módulo é uma library
-    id 'maven-publish'        // Plugin para publicar no Maven
+    id 'com.android.library'
 }
 
 android {
-    namespace 'com.xmachine.parsec.dash'  // substitua pelo seu namespace/pacote Java
+    namespace 'com.xmachine.parsec.dash'  // your package name
     compileSdk = 30
 
     defaultConfig {
         minSdk = 24
-        //noinspection ExpiredTargetSdkVersion
         targetSdk = 30
     }
-
-    publishing {
-        singleVariant("release") // Isso diz que vamos publicar só a variante release
-    }
 }
-
-publishing {
-    publications {
-        release(MavenPublication) {
-            groupId = 'com.xmachine.parsec'
-            artifactId = 'dash-core'
-            version = '1.0.0'
-
-            artifact("$buildDir/outputs/aar/${project.getName()}-release.aar")
-
-            pom {
-                withXml {
-                    def dependenciesNode = asNode().appendNode('dependencies')
-                    configurations.implementation.allDependencies.each { dep ->
-                        def dependencyNode = dependenciesNode.appendNode('dependency')
-                        dependencyNode.appendNode('groupId', dep.group)
-                        dependencyNode.appendNode('artifactId', dep.name)
-                        dependencyNode.appendNode('version', dep.version)
-                    }
-                }
-            }
-        }
-    }
-    repositories {
-        maven {
-            name = "GitHubPackages"
-            url = uri("https://maven.pkg.github.com/Team-XMachine/parsec")
-            credentials {
-                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
-                password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
-            }
-        }
-    }
-}
-
-
 
 dependencies {
     implementation 'org.nanohttpd:nanohttpd:2.3.1'
