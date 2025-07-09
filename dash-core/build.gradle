@@ -59,6 +59,10 @@ publishing {
     }
 }
 
+tasks.named("publishReleasePublicationToMavenLocal") {
+    dependsOn(tasks.named("bundleReleaseAar"))
+}
+
 
 dependencies {
     compileOnly 'org.nanohttpd:nanohttpd:2.3.1'
