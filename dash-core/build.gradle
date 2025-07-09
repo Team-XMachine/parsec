@@ -1,3 +1,10 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        google()
+    }
+}
+
 plugins {
     id 'com.android.library'  // Isso define que seu módulo é uma library
     id 'maven-publish'        // Plugin para publicar no Maven
@@ -51,7 +58,6 @@ publishing {
         }
     }
 }
-
 
 
 dependencies {
