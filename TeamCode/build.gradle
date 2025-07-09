@@ -31,7 +31,7 @@ repositories {
 
 dependencies {
     implementation project(':FtcRobotController')
-    implementation(name: 'dash-core-release', ext: 'aar')
+    implementation project(":dash-core")
 }
 
 
