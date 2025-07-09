@@ -23,6 +23,15 @@ android {
     }
 }
 
+repositories {
+    flatDir {
+        dirs 'libs'
+    }
+}
+
 dependencies {
     implementation project(':FtcRobotController')
+    implementation(name: 'dash-core-release', ext: 'aar')
 }
+
+

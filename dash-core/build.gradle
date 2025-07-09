@@ -1,0 +1,39 @@
+plugins {
+    id 'com.android.library'
+    id 'maven-publish'
+}
+
+android {
+    namespace 'com.xmachine.parsec.dash'  // 👈 Adicione isso!
+    compileSdk = 30
+
+    defaultConfig {
+        minSdk = 24
+        //noinspection ExpiredTargetSdkVersion
+        targetSdk = 30
+    }
+
+    publishing {
+        singleVariant("release")
+    }
+}
+
+publishing {
+    repositories {
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/Team-XMachine/parsec")
+            credentials {
+                username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+                password = project.findProperty("gpr.key") ?: System.getenv("GITHUB_TOKEN")
+            }
+        }
+    }
+}
+
+
+dependencies {
+    implementation 'org.nanohttpd:nanohttpd:2.3.1'
+    implementation 'org.nanohttpd:nanohttpd-websocket:2.3.1'
+    testImplementation 'junit:junit:4.13.2'
+}
