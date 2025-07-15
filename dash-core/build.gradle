@@ -67,5 +67,6 @@ tasks.named("publishReleasePublicationToMavenLocal") {
 dependencies {
     compileOnly 'org.nanohttpd:nanohttpd:2.3.1'
     compileOnly 'org.nanohttpd:nanohttpd-websocket:2.3.1'
+    compileOnly 'org.firstinspires.ftc:RobotCore:10.3.0'
     testImplementation 'junit:junit:4.13.2'
 }
