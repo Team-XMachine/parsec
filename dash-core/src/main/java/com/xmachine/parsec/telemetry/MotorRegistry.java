@@ -1,24 +1,31 @@
 package com.xmachine.parsec.telemetry;
 
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+
 import org.json.JSONArray;
 import org.json.JSONException;
+import org.json.JSONObject;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class MotorRegistry {
-    private static final List<MotorTelemetry> motors = new ArrayList<>();
+    private static final Map<String, MotorInfo> motors = new HashMap<>();
 
     public void addMotor(DcMotorEx motor) {
-        motors.add(new MotorTelemetry(motor));
+        String name = motor.getDeviceName();
+        motors.put(name, new MotorInfo(motor));
     }
 
     public static JSONArray toJsonArray() throws JSONException {
         JSONArray array = new JSONArray();
-        for (MotorTelemetry m : motors) {
-            array.put(m.toJson());
+        for (MotorInfo info : motors.values()) {
+            array.put(info.toJson());
         }
         return array;
+    }
+
+    public Map<String, MotorInfo> getMotors() {
+        return motors;
     }
 }
