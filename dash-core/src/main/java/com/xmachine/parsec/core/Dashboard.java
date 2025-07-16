@@ -9,14 +9,18 @@ public class Dashboard {
 
     static RobotPose robotPose;
     static MotorRegistry motorRegistry;
+
     public static void init() {
         robotPose = new RobotPose();
         motorRegistry = new MotorRegistry();
-        try {
-            new Server(8082);
-        } catch (Exception e) {
-            e.printStackTrace();
+        new Thread(() -> {
+            try {
+                new Server(8082);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
+        ).start();
     }
 
     public static void setRobotPose(double x, double y, double heading) {
