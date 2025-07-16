@@ -7,6 +7,6 @@ public class TestOpMode extends LinearOpMode {
 
     @Override
     public void runOpMode() throws InterruptedException {
-        Dashboard.init();
+        Dashboard.init(8082);
     }
 }

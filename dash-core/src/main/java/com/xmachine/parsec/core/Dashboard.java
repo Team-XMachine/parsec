@@ -10,12 +10,12 @@ public class Dashboard {
     static RobotPose robotPose;
     static MotorRegistry motorRegistry;
 
-    public static void init() {
+    public static void init(int port) {
         robotPose = new RobotPose();
         motorRegistry = new MotorRegistry();
         new Thread(() -> {
             try {
-                new Server(8082);
+                new Server(port);
             } catch (Exception e) {
                 e.printStackTrace();
             }
