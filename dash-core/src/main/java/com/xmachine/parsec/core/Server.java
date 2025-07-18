@@ -46,6 +46,10 @@ public class Server extends NanoWSD {
                 return serveFile("dashboard/style.css", "text/css");
             } else if (uri.endsWith(".js")) {
                 return serveFile("dashboard/script.js", "application/javascript");
+            } else if (uri.endsWith(".jpg")) {
+                return serveFile("dashboard" + uri, "image/png");
+            } else if (uri.endsWith(".ttf")) {
+                return serveFile("dashboard" + uri, "font/ttf");
             } else {
                 return newFixedLengthResponse(Response.Status.NOT_FOUND, "text/plain", "404 Not Found");
             }
