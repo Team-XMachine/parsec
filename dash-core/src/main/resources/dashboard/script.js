@@ -1,8 +1,3 @@
-socket.onopen = function() {
-  document.getElementById('waiting').style.display = 'none';
-  document.getElementById('dashboard-ui').style.display = 'block';
-};
-
 const canvas = document.getElementById("field");
 const ctx = canvas.getContext("2d");
 const motorPanel = document.getElementById("motorPanel");
