@@ -11,6 +11,7 @@ import fi.iki.elonen.NanoHTTPD;
 import fi.iki.elonen.NanoWSD;
 
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Collections;
@@ -59,12 +60,22 @@ public class Server extends NanoWSD {
             return newFixedLengthResponse(Response.Status.NOT_FOUND, mimeType, "404 Not Found");
         }
 
-        @SuppressLint({"NewApi", "LocalSuppress"}) byte[] bytes = stream.readAllBytes();
+        @SuppressLint({"NewApi", "LocalSuppress"}) byte[] bytes = readAllBytes(stream);
         return newFixedLengthResponse(Response.Status.OK, mimeType, new ByteArrayInputStream(bytes), bytes.length);
     }
 
 
     protected void removeSocket(Socket socket) {
         sockets.remove(socket);
+    }
+
+    private byte[] readAllBytes(InputStream inputStream) throws IOException {
+        ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+        byte[] data = new byte[1024];
+        int nRead;
+        while ((nRead = inputStream.read(data, 0, data.length)) != -1) {
+            buffer.write(data, 0, nRead);
+        }
+        return buffer.toByteArray();
     }
 }
