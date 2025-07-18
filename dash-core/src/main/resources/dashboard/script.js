@@ -3,7 +3,7 @@ const ctx = canvas.getContext("2d");
 const motorPanel = document.getElementById("motorPanel");
 
 const fieldImage = new Image();
-fieldImage.src = "field.png";
+fieldImage.src = "field.jpg";
 
 let robotPose = { x: 800, y: 800, heading: 0 };
 let motors = [];
